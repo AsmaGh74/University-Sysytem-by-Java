@@ -23,32 +23,45 @@ public class Main2 {
         //SATURDAY10
         //SUNDAY14
 
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter food name:");
-        String foodName = scanner.nextLine();
-        System.out.println("Enter food price:");
-        double foodPrice = Double.parseDouble(scanner.nextLine());
-        int attempts = 0;
-        do {
-            try {
-                Food newFood = new Food(foodName,foodPrice);
-            }
-            catch (IllegalStateException e){
-                attempts++;
-                System.out.println("Enter food name:");
-                foodName = scanner.nextLine();
-                System.out.println("Enter food price:");
-                foodPrice = Double.parseDouble(scanner.nextLine());
-                if (foodPrice < 10000) {
-                    Food newFood = new Food(foodName,foodPrice);
-                }
-            }
-        } while (foodPrice > 10000 && attempts < 2);
-        if (foodPrice > 10000){
-            System.out.println("You can not add new food any more! More than expected attempts!");
-        }
-        for (String ele:Food.foodList.keySet()) {
-            System.out.println(ele);
-        }
+//        /**
+//         *  handling too much food price exception
+//         */
+//        Scanner scanner = new Scanner(System.in);
+//        System.out.println("Enter food name:");
+//        String foodName = scanner.nextLine();
+//        System.out.println("Enter food price:");
+//        double foodPrice = Double.parseDouble(scanner.nextLine());
+//        int attempts = 0;
+//        do {
+//            try {
+//                Food newFood = new Food(foodName,foodPrice);
+//            }
+//            catch (IllegalStateException e){
+//                attempts++;
+//                System.out.println("Enter food name:");
+//                foodName = scanner.nextLine();
+//                System.out.println("Enter food price:");
+//                foodPrice = Double.parseDouble(scanner.nextLine());
+//                if (foodPrice < 10000) {
+//                    Food newFood = new Food(foodName,foodPrice);
+//                }
+//            }
+//        } while (foodPrice > 10000 && attempts < 2);
+//        if (foodPrice > 10000){
+//            System.out.println("You can not add new food any more! More than expected attempts!");
+//        }
+//        for (String ele:Food.foodList.keySet()) {
+//            System.out.println(ele);
+//        }
+//        // end of handling,, it works
+
+        University university = new University("hi");
+
+        University.foodList.add(new Food("makaroni", 10.0));
+        University.foodList.add(new Food("fesenjoon", 50.0));
+        University.foodList.add(new Food("ghorme", 40.0));
+        University.foodList.add(new Food("kookoo", 5.0));
+        SetWeeklyFoodSchedulePanel setWeeklyFoodSchedulePanel = new SetWeeklyFoodSchedulePanel();
+
     }
 }

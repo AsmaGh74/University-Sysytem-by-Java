@@ -11,13 +11,29 @@ import java.awt.event.WindowEvent;
  */
 public class LoginPanel {
     // stores main frame for the login part
-    JFrame mainLoginFrame;
+    private JFrame mainLoginFrame;
+
+//    // stores username
+//    private String username;
+//    // stores password
+//    private String password;
+
+    // stores username
+    private JTextArea username;
+    // stores password
+    private JPasswordField password;
+    // stores text area for showing the result
+    private JTextArea result;
 
     public LoginPanel(){
         init();
     }
 
     private void init(){
+        username = new JTextArea();
+        password = new JPasswordField();
+        result = new JTextArea();
+
         mainLoginFrame = new JFrame();
         mainLoginFrame.setResizable(false);
         mainLoginFrame.setTitle("Portal Login");
@@ -33,7 +49,7 @@ public class LoginPanel {
 
         // add guide boxes to the frame
         mainLoginFrame.add(guideBox1(),BorderLayout.NORTH);
-//        mainLoginFrame.add(guideBox2(),BorderLayout.SOUTH);
+        mainLoginFrame.add(showResult(),BorderLayout.SOUTH);
 
         // add enter username and pass texts to the center of the portal panel
         mainLoginPanel.add(loginPanel(),BorderLayout.CENTER);
@@ -59,16 +75,14 @@ public class LoginPanel {
         return guideBox;
     }
 
-    private JTextArea guideBox2(){
-        JTextArea guideBox = new JTextArea();
-        guideBox.setEditable(false);
-        guideBox.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+    private JTextArea showResult(){
+        result.setEditable(false);
+        result.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         // set JTextArea font
         Font font = new Font("Optima", Font.BOLD, 15);
-        guideBox.setFont(font);
-        // set JTextArea text
-        guideBox.setText(" Press to reset your password.");
-        return guideBox;
+        result.setFont(font);
+
+        return result;
     }
 
     private JPanel loginPanel(){
@@ -136,15 +150,16 @@ public class LoginPanel {
         // create two JTextAreas and add them to the panel
         Color backgroundColor = new Color(204, 206, 206);
         Font font = new Font("Optima", Font.BOLD, 15);
-        JTextArea username = new JTextArea();
-        username.setBackground(backgroundColor);
-        username.setFont(font);
-        JPasswordField pass = new JPasswordField();
-        pass.setBackground(backgroundColor);
-        pass.setFont(font);
+//        JTextArea username = new JTextArea();
+        this.username.setBackground(backgroundColor);
+        this.username.setFont(font);
 
-        usernameAndPass.add(username);
-        usernameAndPass.add(pass);
+//        JPasswordField pass = new JPasswordField();
+        this.password.setBackground(backgroundColor);
+        this.password.setFont(font);
+
+        usernameAndPass.add(this.username);
+        usernameAndPass.add(this.password);
 
         return usernameAndPass;
     }
@@ -173,9 +188,35 @@ public class LoginPanel {
         login.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // to close and hide the login frame
-                mainLoginFrame.dispatchEvent(new WindowEvent(mainLoginFrame, WindowEvent.WINDOW_CLOSING));
-                PortalPanel portalPanel = new PortalPanel();
+
+                // set username and password in appropriate fields
+                String name = username.getText();
+                String pass = String.valueOf(password.getPassword());
+                boolean userMatch = false;
+
+                try {
+                    userMatch = Main.amirkabir.checkForUserMatch(name,pass);
+                }
+                catch (IllegalArgumentException exception){
+                    username.setText("");
+                    username.update(username.getGraphics());
+                    password.setText("");
+                    password.update(password.getGraphics());
+
+                    result.setText(" Username or password does not match! Try again.");
+                    result.update(result.getGraphics());
+                }
+
+                if (userMatch){
+                    // now we should validate username and password
+                    // if they are valid we should enter portal based on the user type
+                    // if not we should show the appropriate message
+                    String userType = Main.amirkabir.checkUsernameAndPassword(name,pass);
+
+                    // to close and hide the login frame
+                    mainLoginFrame.dispatchEvent(new WindowEvent(mainLoginFrame, WindowEvent.WINDOW_CLOSING));
+                    PortalPanel portalPanel = new PortalPanel(userType, name);
+                }
             }
         });
 

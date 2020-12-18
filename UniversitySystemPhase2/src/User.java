@@ -7,9 +7,6 @@ import java.util.ArrayList;
  * @version 1.0
  */
 public class User {
-    // stores all created usernames
-    // when a new username creates, can be checked to be unique by comparing with usernames in this array list
-    public static ArrayList<String> createdUsernames;
 
     // stores selected username by the user for her/his account
     private String username;
@@ -23,8 +20,7 @@ public class User {
      * @param username  user's username
      * @param password  user's password
      */
-    public User(String username, String password) throws IllegalArgumentException{
-        createdUsernames = new ArrayList<>();
+    public User(String username, String password) throws IllegalArgumentException, IllegalStateException {
         setUsername(username);
         setPassword(password);
     }
@@ -33,13 +29,10 @@ public class User {
      * Set the user's username and make sure that it is not duplicate.
      * @param name  user's username
      */
-    private void setUsername(String name) throws IllegalArgumentException{
-        for (String ele:createdUsernames) {
-            if (ele.equals(name)) throw new IllegalArgumentException();
-        }
+    private void setUsername(String name) throws IllegalStateException{
+        if (University.createdUsernames.contains(name)) throw new IllegalStateException();
+
         this.username = name;
-        // add the new username to created usernames list
-        createdUsernames.add(name);
     }
 
     /**
@@ -65,5 +58,40 @@ public class User {
      */
     protected String getUsername(){
         return username;
+    }
+
+    /**
+     * Get user's password.
+     * @return password
+     */
+    protected String getPassword(){
+        return password;
+    }
+
+    /**
+     * Compares two users and returns true if both of them have the same username and password.
+     * @param username user's username to be checked and compared
+     * @param password  user's password to be checked and compared
+     * @return  true if they are equal
+     */
+    public boolean equals(String username, String password){
+        return this.username.equals(username) &&
+                this.password.equals(password);
+    }
+
+    /**
+     * This method will check the entered username and password validity.
+     * @param username  entered username
+     * @param password  entered password
+     * @return  true if both username and password are valid
+     */
+    public boolean checkUsernameAndPassValidity(String username, String password){
+        return !University.createdUsernames.contains(username) && password.length() > 7;
+    }
+
+    public void list(){ /// test
+        for (String ele :University.createdUsernames) {
+            System.out.println(ele);
+        }
     }
 }

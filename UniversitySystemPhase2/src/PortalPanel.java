@@ -8,9 +8,15 @@ import java.awt.*;
  */
 public class PortalPanel {
     // stores the main frame for portal
-    JFrame portalFrame;
+    private JFrame portalFrame;
+    // stores user type and based on that will set the menu
+    private String userType;
+    // stores username to set in the profile panel
+    private String username;
 
-    public PortalPanel(){
+    public PortalPanel(String userType, String username){
+        this.userType = userType;
+        this.username = username;
         init();
     }
 
@@ -33,9 +39,9 @@ public class PortalPanel {
         portalPanel.setBackground(Color.WHITE);
 
         // add profile panel to the portal panel
-        Image profileImg = new ImageIcon("D:\\Lessons #2\\AP99\\Home Works\\Midterm Project\\phase1\\imgs\\portal3.png").getImage();
-        ProfilePanel profilePanel = new ProfilePanel("Asma Gh", profileImg);
-        portalPanel.add(profilePanel);
+//        Image profileImg = new ImageIcon("D:\\Lessons #2\\AP99\\Home Works\\Midterm Project\\phase1\\imgs\\portal3.png").getImage();
+//        ProfilePanel profilePanel = new ProfilePanel("Asma Gh", profileImg);
+        portalPanel.add(addProfilePic());
 
         // add welcome text to the portal panel
         portalPanel.add(welcomeText());
@@ -59,7 +65,40 @@ public class PortalPanel {
     }
 
     private JMenuBar portalMenu(){
-        StudentMenu studentMenu = new StudentMenu();
-        return studentMenu;
+        JMenuBar menu = new JMenuBar();
+        switch (userType){
+            case "admin":
+                menu = new AdminMenu();
+                break;
+            case "master":
+                menu = new MasterMenu();
+                break;
+            case "student":
+                menu = new StudentMenu();
+                break;
+        }
+        return menu;
+    }
+
+    /**
+     * Set and return profile panel based on the user type.
+     * @return  profile panel for the user
+     */
+    private ProfilePanel addProfilePic(){
+        String addressForDefaultProfilePhoto = "";
+        switch (userType){
+            case "admin":
+                addressForDefaultProfilePhoto = Admin.addressForDefaultProfilePhoto;
+                break;
+            case "master":
+                addressForDefaultProfilePhoto = Master.addressForDefaultProfilePhoto;
+                break;
+            case "student":
+                addressForDefaultProfilePhoto = Student.addressForDefaultProfilePhoto;
+                break;
+        }
+        Image profileImg = new ImageIcon(addressForDefaultProfilePhoto).getImage();
+        ProfilePanel profilePanel = new ProfilePanel(username, profileImg);
+        return profilePanel;
     }
 }

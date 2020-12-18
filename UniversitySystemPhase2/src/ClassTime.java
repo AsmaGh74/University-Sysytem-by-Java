@@ -49,9 +49,12 @@ public class ClassTime {
      * throws appropriate exception if number of units is not in the valid range ([1-4]).
      * @param numberOfUnits  number of units for the course
      */
-    private void setNumberOfUnits(int numberOfUnits){
+    private void setNumberOfUnits(int numberOfUnits) throws NotInTheValidListException{
         //*** set number of units and throw appropriate exception if it is not in [1-4] range
-        NotInTheValidListException exception = new NotInTheValidListException(numberOfUnits, validNumberOfUnits); // here
+        if (!validNumberOfUnits.contains(String.valueOf(numberOfUnits))){
+            NotInTheValidListException notInTheValidListException = new NotInTheValidListException(numberOfUnits, validNumberOfUnits);
+            throw notInTheValidListException;
+        }
         this.numberOfUnits = numberOfUnits;
     }
 

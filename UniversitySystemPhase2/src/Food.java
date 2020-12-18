@@ -12,8 +12,9 @@ public class Food {
 //    public static Set<String> validFoodNames =
 //            new HashSet<String>(Arrays.asList());
 
-    // stores foods with their prices
-    public static HashMap<String,Double> foodList;
+//    // stores foods with their prices
+//    public static HashMap<String,Double> foodList;
+
     // stores food name
     private String foodName;
     // stores food price
@@ -25,18 +26,31 @@ public class Food {
      * @param foodName  name of the food
      * @param foodPrice  price of the food
      */
-    public Food(String foodName, double foodPrice) throws IllegalStateException{
-        foodList = new HashMap<>();
+    public Food(String foodName, Double foodPrice) throws NumberFormatException{
         this.foodName = foodName;
-
-        // check food price to not be more than 10000, if it is throw an exception and handle it
-        if (foodPrice > 10000) {
-            System.out.println("Food price can not be more than 10000");
-            throw new IllegalStateException();
-        }
-
         this.foodPrice = foodPrice;
-        foodList.put(foodName,foodPrice);
     }
+
+    /**
+     * Return name of the food.
+     * @return  food name
+     */
+    public String getFoodName(){
+        return foodName;
+    }
+
+    /**
+     * Return price of the food.
+     * @return food price
+     */
+    public Double getFoodPrice(){
+        return foodPrice;
+    }
+
+//    public void list(){  // test
+//        for (Food ele:University.foodList) {
+//            System.out.println(ele.foodName + "   "  + ele.foodPrice);
+//        }
+//    }
 
 }

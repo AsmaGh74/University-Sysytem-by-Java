@@ -6,7 +6,7 @@ import java.util.Set;
  * @author Asma
  * @version 1.0
  */
-public class NotInTheValidListException {
+public class NotInTheValidListException extends RuntimeException{
     // stores valid values set
     private Set<String> validValuesSet;
     // stores entered value

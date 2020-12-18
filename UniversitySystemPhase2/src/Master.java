@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Master extends User{
 
     // stores file address for master's default profile photo
-    private String addressForDefaultProfilePhoto;
+    public static String addressForDefaultProfilePhoto;
     // stores a list of courses that the master teaches
     private ArrayList<Course> courses;
 
@@ -23,5 +23,13 @@ public class Master extends User{
         courses = new ArrayList<Course>();
         addressForDefaultProfilePhoto = "D:\\Lessons #2\\AP99\\Home Works\\Midterm Project\\phase1\\imgs\\master.png";
         super.setProfilePhoto(new ImageIcon(addressForDefaultProfilePhoto).getImage());
+    }
+
+    /**
+     * Return user type.
+     * @return "master"
+     */
+    public String toString(){
+        return "master";
     }
 }

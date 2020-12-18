@@ -9,7 +9,7 @@ import java.awt.*;
 public class Admin extends User{
 
     // stores file address for admin's default profile photo
-    private String addressForDefaultProfilePhoto;
+    public static String addressForDefaultProfilePhoto;
 
     /**
      * Creates a new admin with unique username and a password.
@@ -20,6 +20,14 @@ public class Admin extends User{
         super(username, password);
         addressForDefaultProfilePhoto = "D:\\Lessons #2\\AP99\\Home Works\\Midterm Project\\phase1\\imgs\\admin.png";
         super.setProfilePhoto(new ImageIcon(addressForDefaultProfilePhoto).getImage());
+    }
+
+    /**
+     * Returns user type.
+     * @return "admin"
+     */
+    public String toString(){
+        return "admin";
     }
 
 

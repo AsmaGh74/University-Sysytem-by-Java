@@ -63,7 +63,7 @@ public class Course {
      */
     public void setGradeForStudent(Student student, Double grade){
         for (Student ele:studentsAndGrades.keySet()) {
-            if (ele.equals(student)) studentsAndGrades.put(ele,grade);
+            if (ele.nameEquality(student)) studentsAndGrades.put(ele,grade);
         }
     }
 
@@ -76,7 +76,7 @@ public class Course {
         //*** check for student existence in the course students' list and throw appropriate exception
         Double grade = 0.0;
         for (Student ele:studentsAndGrades.keySet()) {
-            if (ele.equals(student)) grade = studentsAndGrades.get(ele);
+            if (ele.nameEquality(student)) grade = studentsAndGrades.get(ele);
         }
         return grade;
     }

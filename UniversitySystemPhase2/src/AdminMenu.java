@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * AdminMenu class generates a menu bar for admin's portal.
@@ -47,20 +49,64 @@ public class AdminMenu extends Menu{
         student.setFont(font);
         student.setText("student");
 
+        // set a mouse listener to the add student menu
+        // with this listener when u click an add student and master panel will appear
+        student.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                AddStudentAndMasterPanel addStudentAndMasterPanel = new AddStudentAndMasterPanel("student");
+            }
+        });
+
         JMenu master = new JMenu();
         master.setFont(font);
         master.setText("master");
+
+        // set a mouse listener to the add master menu
+        // with this listener when u click an add student and master panel will appear
+        master.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                AddStudentAndMasterPanel addStudentAndMasterPanel = new AddStudentAndMasterPanel("master");
+            }
+        });
 
         JMenu set = new JMenu();
         set.setFont(font);
 //        set.setForeground(Color.BLUE);
         set.setOpaque(true);
         set.setBackground(color);
-        set.setText("SET");
+        set.setText("FOOD");
+
+        JMenu food = new JMenu();
+        food.setFont(font);
+        food.setText("add new food");
+
+        // set a mouse listener to the add food menu
+        // with this listener when u click an add food panel will appear
+        food.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                AddFoodPanel addFoodPanel = new AddFoodPanel();
+            }
+        });
 
         JMenu diet = new JMenu();
         diet.setFont(font);
-        diet.setText("diet");
+        diet.setText("set weekly food schedule");
+
+        // set a mouse listener to the set weekly food schedule menu
+        // with this listener when u click an set weekly food schedule panel will appear
+        diet.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                SetWeeklyFoodSchedulePanel setWeeklyFoodSchedulePanel = new SetWeeklyFoodSchedulePanel();
+            }
+        });
 
         JMenu change = new JMenu();
         change.setFont(font);
@@ -87,6 +133,7 @@ public class AdminMenu extends Menu{
         this.add(master);
 
         this.add(set);
+        this.add(food);
         this.add(diet);
 
         this.add(change);

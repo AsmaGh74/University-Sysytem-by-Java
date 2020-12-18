@@ -9,7 +9,7 @@ public class Student extends User{
     //***** do not forget abt avg calculation for student
 
     // stores file address for student's default profile photo
-    private String addressForDefaultProfilePhoto;
+    public static String addressForDefaultProfilePhoto;
     // stores balance for student account
     private double balance;
     // stores avg for student's grades
@@ -57,10 +57,18 @@ public class Student extends User{
      * @param object  object to be checked
      * @return  true if object and this student are the same
      */
-    public boolean equals(Object object){
+    public boolean nameEquality(Object object){
         if (this == object) return true;
         if (!(object instanceof Student)) return false;
         Student student = (Student) object;
         return super.getUsername().equals(student.getUsername());
+    }
+
+    /**
+     * Return user type.
+     * @return "student"
+     */
+    public String toString(){
+        return "student";
     }
 }
